@@ -14,14 +14,16 @@ body {
 }
 
 img.logo {
+    height: 200px;
     vertical-align: middle;
 }
 
-.pp-workshop {
+.viewname {
     font-family: "Audiowide", Verdana, Geneva, Tahoma, sans-serif;
     font-size: xx-large;
     color: #dadada;
     padding-left: 5%;
+    vertical-align: middle;
 }
 
 /* Style the top navigation bar */
