@@ -91,6 +91,9 @@ img.logo {
 }
 
 .footer p {
-    font-family: "Audiowide", Verdana, Geneva, Tahoma, sans-serif;
-    font-size: xx-small;
+    font-family: "Great Vibes", cursive;
+    color: #062242;
+    font-size: small;
+    font-weight: 800;
+    font-style: normal;
 }
