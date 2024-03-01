@@ -1,20 +1,42 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PP Workshop</title>
-    <link rel="stylesheet" href="style.css">
+    <title>PP-Workshop</title>
+    <link rel="icon" type="image/x-icon" href="../resources/pp-workshop40px.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+    <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
-    <p id="IdQuestionNr"></p>
-    <progress id="IdTimeBar"></progress>
-    <h1 id="IdHeader">Podaj wynik mnożenia</h1>
-    <label id="IdQuestion" for="IdAnswer"></label>
-    <input id="IdAnswer" type="number" placeholder="Podaj wynik mnożenia" />
-    <button id="IdSubmit">Wyślij</button>
+    <div class="topbar">
+        <div class="logoname">
+            <a href="../index.html">
+                <img class="logo" src="../resources/pp-workshop80px.png" alt="PP-Workshop-logo">
+            </a>
+        </div>
+        <div class="logoname" id="viewnamediv">
+            <p class="viewname" id="viewname">PP-workshop</p>
+        </div>
+    </div>
+
+    <div class="content">
+        <p id="IdQuestionNr"></p>
+        <progress id="IdTimeBar"></progress>
+        <h1 id="IdHeader">Podaj wynik mnożenia</h1>
+        <label id="IdQuestion" for="IdAnswer"></label>
+        <input id="IdAnswer" type="number" placeholder="Podaj wynik mnożenia" />
+        <button id="IdSubmit">Wyślij</button>
+    </div>
+
+    <div class="footer">
+        <p>P. S.</p>
+    </div>
 
     <script src="multiply.js"></script>
 </body>

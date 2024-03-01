@@ -79,8 +79,8 @@ img.logo {
 .content {
     background-color: #ddd;
     padding: 10px;
-    height: 200px;
-    /* Should be removed. Only for demonstration */
+    padding-bottom: 40px;
+    min-height: 200px;
 }
 
 /* Style the footer */
