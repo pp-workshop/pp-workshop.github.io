@@ -10,21 +10,18 @@ body {
 
 .topbar {
     overflow: hidden;
-    background-color: #333;
+    background-color: #242424;
 }
 
 .logoname {
+    overflow: hidden;
     display: inline-block;
-}
-
-#logodiv {
-    width: fit-content;
+    vertical-align: middle;
 }
 
 img.logo {
     max-width: 80px;
-    vertical-align: middle;
-    margin-left: 10px;
+    margin-left: 30px;
 }
 
 #viewnamediv {
@@ -35,13 +32,13 @@ img.logo {
     font-family: "Audiowide", Verdana, Geneva, Tahoma, sans-serif;
     font-size: large;
     color: #dadada;
-    padding-left: 5%;
-    vertical-align: middle;
+    margin-left: 0px;
 }
 
 @media only screen and (min-width: 768px) {
     .viewname {
         font-size: xx-large;
+        margin-left: 20px;
     }
 }
 
