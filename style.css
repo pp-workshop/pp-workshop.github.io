@@ -22,9 +22,9 @@ body {
 }
 
 img.logo {
-    max-width: 150px;
+    max-width: 80px;
     vertical-align: middle;
-    margin-left: 100px;
+    margin-left: 10px;
 }
 
 #viewnamediv {
@@ -33,10 +33,16 @@ img.logo {
 
 .viewname {
     font-family: "Audiowide", Verdana, Geneva, Tahoma, sans-serif;
-    font-size: xx-large;
+    font-size: large;
     color: #dadada;
     padding-left: 5%;
     vertical-align: middle;
+}
+
+@media only screen and (min-width: 768px) {
+    .viewname {
+        font-size: xx-large;
+    }
 }
 
 /* Style the top navigation bar */
