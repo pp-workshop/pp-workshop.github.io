@@ -5,32 +5,32 @@
 
 body {
     margin: 0;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.topbar {
+.top-bar {
     overflow: hidden;
     background-image: linear-gradient(to right, #000000, #2c0c21);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.logoname {
+.logo-name {
     max-width: 800px;
     margin: auto;
     display: flex;
-    padding: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    align-items: center;
 }
 
-img.logo {
+.logo {
     max-width: 120px;
-    margin-left: 30px;
 }
 
-.viewname {
+.name {
     font-family: "Audiowide", Verdana, Geneva, Tahoma, sans-serif;
-    font-size: xx-large;
+    font-size: 40px;
     margin-left: 20px;
-    color: #dadada;
+    color: white;
 }
 
 .content {
