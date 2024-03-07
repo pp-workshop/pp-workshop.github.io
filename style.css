@@ -10,90 +10,32 @@ body {
 
 .topbar {
     overflow: hidden;
-    background-color: #242424;
+    /* background-color: #180014; */
+    background-image: linear-gradient(to right, #000000, #2c0c21);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .logoname {
-    overflow: hidden;
-    display: inline-block;
-    vertical-align: middle;
+    max-width: 800px;
+    margin: auto;
+    display: flex;
+    padding: 40px;
 }
 
-/* Generic (mobile first approach) */
 img.logo {
-    max-width: 40px;
-    margin-left: 10px;
+    max-width: 120px;
+    margin-left: 30px;
 }
 
-/* Bigger screens (Descktops) */
-@media only screen and (min-width: 768px) {
-    img.logo {
-        max-width: 80px;
-        margin-left: 30px;
-    }
-}
-
-#viewnamediv {
-    width: 60%;
-}
-
-/* Generic (mobile first approach) */
 .viewname {
     font-family: "Audiowide", Verdana, Geneva, Tahoma, sans-serif;
-    font-size: large;
+    font-size: xx-large;
+    margin-left: 20px;
     color: #dadada;
-    margin-left: 0px;
 }
 
-/* Bigger screens (Descktops) */
-@media only screen and (min-width: 768px) {
-    .viewname {
-        font-size: xx-large;
-        margin-left: 20px;
-    }
-}
-
-/* Style the top navigation bar */
-.topnav {
-    overflow: hidden;
-    background-color: #525252;
-}
-
-/* Style the topnav links */
-.topnav a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-/* Change color on hover */
-.topnav a:hover {
-    background-color: #ddd;
-    color: black;
-}
-
-/* Style the content */
 .content {
-    background-color: #ddd;
-    padding: 10px;
-    padding-bottom: 40px;
-    min-height: 200px;
-}
-
-/* Style the footer */
-.footer {
-    background-color: #f1f1f1;
-    padding: 10px;
-    text-align: right;
-}
-
-.footer p {
-    font-family: "Great Vibes", cursive;
-    color: #062242;
-    font-size: small;
-    font-weight: 800;
-    font-style: normal;
+    padding-top: 20px;
+    max-width: 800px;
+    margin: auto;
 }
