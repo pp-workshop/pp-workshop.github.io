@@ -87,4 +87,16 @@ body {
 .container {
     flex: 1;
     padding: 2px 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.description {
+    margin-bottom: auto;
+
+}
+
+.start {
+    text-align: right;
+    text-decoration: underline;
 }
