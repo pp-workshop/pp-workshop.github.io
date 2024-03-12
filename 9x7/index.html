@@ -11,15 +11,16 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../header-short-style.css">
 </head>
 
 <body>
     <div class="top-bar">
-        <div class="logo-name full-width">
+        <div class="header full-width">
             <a href="../index.html">
                 <img class="logo" src="../resources/pp-workshop-solid-bg.svg" alt="PP-Workshop-logo">
             </a>
-            <p class="name">Software-Workshop</p>
+            <p>Software-Workshop</p>
         </div>
     </div>
 
@@ -28,15 +29,13 @@
         <div class="title-card">
             <img src="../resources/9x7.svg" alt="9x7">
             <div>
-                <h2><b>Tabliczka Mnożenia</b></h2>
+                <h2 id="IdHeader"><b>Tabliczka Mnożenia</b></h2>
             </div>
         </div>
 
-        <h1 id="IdHeader"></h1>
-
         <label id="IdNrOfQuestionsLabel" for="IdNrOfQuestions"></label>
-        <input id="IdNrOfQuestions" type="number" placeholder="100" />
-        <button id="IdStartTest">Rozpocznij test</button>
+        <input id="IdNrOfQuestions" class="button" type="number" placeholder="100" />
+        <button id="IdStartTest" class="button">Rozpocznij test</button>
     </div>
 
     <script src="index.js"></script>

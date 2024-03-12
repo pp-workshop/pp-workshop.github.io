@@ -15,7 +15,7 @@ let config = {
 };
 
 // Initialization steps
-HeaderElm.textContent = "Rozpocznij test znajomości tabliczki mnożenia";
+HeaderElm.textContent = "Tabliczka mnożenia";
 NrOfQuestionsLabelElm.textContent = "Podaj liczbę pytań";
 NrOfQuestionsElm.value = config.nrOfQuestions;
 NrOfQuestionsElm.placeholder = "Liczba pytań";

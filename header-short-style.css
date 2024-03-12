@@ -1,0 +1,18 @@
+.header {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.header .logo {
+    max-width: 40px;
+}
+
+.header p {
+    font-family: "Audiowide", Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    margin-left: 20px;
+    color: white;
+}

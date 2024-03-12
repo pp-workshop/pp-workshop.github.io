@@ -1,8 +1,3 @@
-// Some useful snippets here:
-// console.log("This is log");
-// window.alert("This is an allert!");
-// let username = window.prompt("Podaj imię");
-
 // HTML Elements
 let QuestionElm = document.getElementById("IdQuestion");
 let AnswerElm = document.getElementById("IdAnswer");
