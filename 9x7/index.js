@@ -1,8 +1,7 @@
 // HTML Elements
 let HeaderElm = document.getElementById("IdHeader");
-let NrOfQuestionsLabelElm = document.getElementById("IdNrOfQuestionsLabel");
-let NrOfQuestionsElm = document.getElementById("IdNrOfQuestions");
 let StartTestElm = document.getElementById("IdStartTest");
+let StartLearningElm = document.getElementById("IdStartLearning");
 
 // Global variables to hold the state of the application
 let TEN_SECONDS = 10;
@@ -16,19 +15,15 @@ let config = {
 
 // Initialization steps
 HeaderElm.textContent = "Tabliczka mnożenia";
-NrOfQuestionsLabelElm.textContent = "Podaj liczbę pytań";
-NrOfQuestionsElm.value = config.nrOfQuestions;
-NrOfQuestionsElm.placeholder = "Liczba pytań";
+StartLearningElm.textContent = "Rozpocznij naukę";
+StartTestElm.textContent = "Rozpocznij test";
 
 //Event handlers
 StartTestElm.onclick = function () {
-    var nrOfQuestions = NrOfQuestionsElm.value;
-    if (0 >= nrOfQuestions) {
-        window.alert("Wprowadź liczbę pytań (minimum jedno)");
-        return;
-    }
-
-    config.nrOfQuestions = nrOfQuestions;
     sessionStorage.setItem("config", JSON.stringify(config));
-    location.href = "multiply.html";
+    location.href = "test.html";
+}
+
+StartLearningElm.onclick = function () {
+    location.href = "learn.html";
 }

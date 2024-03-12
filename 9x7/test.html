@@ -25,19 +25,15 @@
     </div>
 
     <div class="content full-width">
-
-        <div class="title-card">
-            <img src="../resources/9x7.svg" alt="9x7">
-            <div>
-                <h2 id="IdHeader"><b></b></h2>
-            </div>
-        </div>
-
-        <button id="IdStartLearning" class="button">Rozpocznij naukę</button>
-        <button id="IdStartTest" class="button">Rozpocznij test</button>
+        <p id="IdQuestionNr"></p>
+        <progress id="IdTimeBar"></progress>
+        <h1 id="IdHeader">Podaj wynik mnożenia</h1>
+        <label id="IdQuestion" for="IdAnswer"></label>
+        <input id="IdAnswer" type="number" placeholder="Podaj wynik mnożenia" />
+        <button id="IdSubmit">Wyślij</button>
     </div>
 
-    <script src="index.js"></script>
+    <script src="test.js"></script>
 </body>
 
 </html>
