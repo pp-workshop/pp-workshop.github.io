@@ -1,7 +1,9 @@
 // HTML Elements
 let QuestionElm = document.getElementById("IdQuestion");
-let AnswerElm = document.getElementById("IdAnswer");
-let SubmitElm = document.getElementById("IdSubmit");
+let AnswerAElm = document.getElementById("IdAnswerA");
+let AnswerBElm = document.getElementById("IdAnswerB");
+let AnswerCElm = document.getElementById("IdAnswerC");
+let AnswerDElm = document.getElementById("IdAnswerD");
 let QuestionNrElm = document.getElementById("IdQuestionNr");
 let TimeLabelElm = document.getElementById("IdTimeLabel");
 let TimeBarElm = document.getElementById("IdTimeBar");
@@ -9,11 +11,22 @@ let TimeBarElm = document.getElementById("IdTimeBar");
 // Global variables to hold the state of the application
 let MS_IN_SEC = 1000; // Number of milliseconds in second
 let SCORE_PER_QUESTION = 10;
+let TEN_SECONDS = 10;
+
+let config = {
+    nrOfQuestions: 100,
+    minArgVal: 1,
+    maxArgVal: 10,
+    timeoutSec: TEN_SECONDS,
+};
 
 let question = {
     a: 0,
     b: 0,
     correctAns: 0,
+    incorrectAns1: 0,
+    incorrectAns2: 0,
+    incorrectAns3: 0,
 };
 
 let stats = {
@@ -21,8 +34,6 @@ let stats = {
     questionNr: 0,
     score: 0,
 };
-
-let config = JSON.parse(sessionStorage.getItem("config"));
 
 let timeoutCtx;
 
@@ -39,7 +50,17 @@ function generateQuestion() {
     question.a = getRandomInt(config.minArgVal, config.maxArgVal);
     question.b = getRandomInt(config.minArgVal, config.maxArgVal);
     question.correctAns = question.a * question.b;
+    // TODO: Prepare correct implementation for incorrect answers
+    question.incorrectAns1 = question.correctAns + 1;
+    question.incorrectAns2 = question.correctAns + 2;
+    question.incorrectAns3 = question.correctAns + 3;
+
     QuestionElm.textContent = `${question.a} x ${question.b} = `;
+    AnswerAElm.textContent = `${question.correctAns}`;
+    AnswerBElm.textContent = `${question.incorrectAns1}`;
+    AnswerCElm.textContent = `${question.incorrectAns2}`;
+    AnswerDElm.textContent = `${question.incorrectAns3}`;
+
     stats.questionNr++;
 
     QuestionNrElm.textContent = `Pytanie ${stats.questionNr} z ${config.nrOfQuestions}:`;
@@ -82,7 +103,6 @@ function isFinished() {
 
 function prepareNextQuestion() {
     // clear the entry
-    AnswerElm.value = null;
     scoreForCurrentQuestion = SCORE_PER_QUESTION;
     TimeBarElm.value = scoreForCurrentQuestion;
 
@@ -100,25 +120,28 @@ TimeBarElm.max = SCORE_PER_QUESTION;
 TimeBarElm.value = SCORE_PER_QUESTION;
 
 generateQuestion();
-AnswerElm.focus();
 
 // Event handlers
-SubmitElm.onclick = function () {
+function registerAnswer(ans) {
     clearInterval(timeoutCtx);
-    let answer = AnswerElm.value;
+    let answer = ans;
 
     checkAnswer(answer);
     prepareNextQuestion();
 }
 
-// This is how you can trigger a button activation by hitting enter in an input field
-// Execute a function when the user presses a key on the keyboard
-AnswerElm.addEventListener("keypress", function (event) {
-    // If the user presses the "Enter" key on the keyboard
-    if (event.key === "Enter") {
-        // Cancel the default action, if needed
-        event.preventDefault();
-        // Trigger the button element with a click
-        SubmitElm.click();
-    }
-}); 
+AnswerAElm.onclick = function () {
+    registerAnswer(question.correctAns);
+}
+
+AnswerBElm.onclick = function () {
+    registerAnswer(question.incorrectAns1);
+}
+
+AnswerCElm.onclick = function () {
+    registerAnswer(question.incorrectAns2);
+}
+
+AnswerDElm.onclick = function () {
+    registerAnswer(question.incorrectAns3);
+}
