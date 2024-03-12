@@ -56,6 +56,7 @@ function generateQuestion() {
     question.incorrectAns3 = question.correctAns + 3;
 
     QuestionElm.textContent = `${question.a} x ${question.b} = `;
+    // TODO: Implement a question shuffle mechanism
     AnswerAElm.textContent = `${question.correctAns}`;
     AnswerBElm.textContent = `${question.incorrectAns1}`;
     AnswerCElm.textContent = `${question.incorrectAns2}`;
