@@ -24,7 +24,6 @@ let question = {
     a: 0,
     b: 0,
     correctAns: 0,
-    answerOptions: [0, 0, 0, 0],
 };
 
 let stats = {
@@ -44,22 +43,75 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
 }
 
+function getRandomIntAroundVal(val, minMax, limitLo, limitHi) {
+    let candidate = 0;
+    do {
+        candidate = val + getRandomInt(-minMax, minMax);
+    } while (candidate < limitLo || candidate > limitHi);
+
+    return candidate
+}
+
+// Generates answer option that's different than other options in the array,
+// and is also greater than 0 and smaller or equal to 100
+function generateAnswerOption(ansOpts, correctAns) {
+    let candidate = 0;
+    let regenerate;
+
+    do {
+        regenerate = false;
+        candidate = getRandomIntAroundVal(correctAns, 10, 1, 100);
+        ansOpts.forEach(element => {
+            if (element == candidate) {
+                regenerate = true;
+            }
+        });
+    } while (regenerate == true);
+
+    return candidate;
+}
+
+// Shuffle elements in the array
+// NOTE: this algorithm is ineffective and should not be used for large arrays!
+function shuffle(array) {
+
+    let arrayLength = array.length;
+    let shuffledArray = [];
+
+    array.forEach(element => {
+        let newIdx;
+        do {
+            newIdx = getRandomInt(0, arrayLength);
+        } while (shuffledArray[newIdx] != null)
+        shuffledArray[newIdx] = element;
+    });
+
+    return shuffledArray;
+}
+
+function generateAnswerOptions(q) {
+    let answerOptions = [0, 0, 0, 0];
+
+    answerOptions[0] = q.correctAns;
+    answerOptions[1] = generateAnswerOption(answerOptions, q.correctAns);
+    answerOptions[2] = generateAnswerOption(answerOptions, q.correctAns);
+    answerOptions[3] = generateAnswerOption(answerOptions, q.correctAns);
+
+    return shuffle(answerOptions);
+}
+
 function generateQuestion() {
     question.a = getRandomInt(config.minArgVal, config.maxArgVal);
     question.b = getRandomInt(config.minArgVal, config.maxArgVal);
     question.correctAns = question.a * question.b;
-    // TODO: Prepare correct implementation for incorrect answers
-    question.answerOptions[0] = question.correctAns;
-    question.answerOptions[1] = question.correctAns + 1;
-    question.answerOptions[2] = question.correctAns + 2;
-    question.answerOptions[3] = question.correctAns + 3;
+
+    let ansOptions = generateAnswerOptions(question);
 
     QuestionElm.textContent = `${question.a} x ${question.b} = `;
-    // TODO: Implement a question shuffle mechanism
-    AnswerAElm.textContent = `${question.answerOptions[0]}`;
-    AnswerBElm.textContent = `${question.answerOptions[1]}`;
-    AnswerCElm.textContent = `${question.answerOptions[2]}`;
-    AnswerDElm.textContent = `${question.answerOptions[3]}`;
+    AnswerAElm.textContent = `${ansOptions[0]}`;
+    AnswerBElm.textContent = `${ansOptions[1]}`;
+    AnswerCElm.textContent = `${ansOptions[2]}`;
+    AnswerDElm.textContent = `${ansOptions[3]}`;
 
     stats.questionNr++;
 
