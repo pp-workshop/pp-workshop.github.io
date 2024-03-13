@@ -24,9 +24,7 @@ let question = {
     a: 0,
     b: 0,
     correctAns: 0,
-    incorrectAns1: 0,
-    incorrectAns2: 0,
-    incorrectAns3: 0,
+    answerOptions: [0, 0, 0, 0],
 };
 
 let stats = {
@@ -51,16 +49,17 @@ function generateQuestion() {
     question.b = getRandomInt(config.minArgVal, config.maxArgVal);
     question.correctAns = question.a * question.b;
     // TODO: Prepare correct implementation for incorrect answers
-    question.incorrectAns1 = question.correctAns + 1;
-    question.incorrectAns2 = question.correctAns + 2;
-    question.incorrectAns3 = question.correctAns + 3;
+    question.answerOptions[0] = question.correctAns;
+    question.answerOptions[1] = question.correctAns + 1;
+    question.answerOptions[2] = question.correctAns + 2;
+    question.answerOptions[3] = question.correctAns + 3;
 
     QuestionElm.textContent = `${question.a} x ${question.b} = `;
     // TODO: Implement a question shuffle mechanism
-    AnswerAElm.textContent = `${question.correctAns}`;
-    AnswerBElm.textContent = `${question.incorrectAns1}`;
-    AnswerCElm.textContent = `${question.incorrectAns2}`;
-    AnswerDElm.textContent = `${question.incorrectAns3}`;
+    AnswerAElm.textContent = `${question.answerOptions[0]}`;
+    AnswerBElm.textContent = `${question.answerOptions[1]}`;
+    AnswerCElm.textContent = `${question.answerOptions[2]}`;
+    AnswerDElm.textContent = `${question.answerOptions[3]}`;
 
     stats.questionNr++;
 
@@ -132,17 +131,17 @@ function registerAnswer(ans) {
 }
 
 AnswerAElm.onclick = function () {
-    registerAnswer(question.correctAns);
+    registerAnswer(AnswerAElm.textContent);
 }
 
 AnswerBElm.onclick = function () {
-    registerAnswer(question.incorrectAns1);
+    registerAnswer(AnswerBElm.textContent);
 }
 
 AnswerCElm.onclick = function () {
-    registerAnswer(question.incorrectAns2);
+    registerAnswer(AnswerCElm.textContent);
 }
 
 AnswerDElm.onclick = function () {
-    registerAnswer(question.incorrectAns3);
+    registerAnswer(AnswerDElm.textContent);
 }
