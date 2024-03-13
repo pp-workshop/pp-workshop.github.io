@@ -74,14 +74,12 @@ function generateAnswerOption(ansOpts, correctAns) {
 // Shuffle elements in the array
 // NOTE: this algorithm is ineffective and should not be used for large arrays!
 function shuffle(array) {
-
-    let arrayLength = array.length;
     let shuffledArray = [];
 
     array.forEach(element => {
         let newIdx;
         do {
-            newIdx = getRandomInt(0, arrayLength);
+            newIdx = getRandomInt(0, array.length);
         } while (shuffledArray[newIdx] != null)
         shuffledArray[newIdx] = element;
     });
