@@ -165,6 +165,12 @@ function prepareNextQuestion() {
     }
 }
 
+function registerAnswer(ans) {
+    clearInterval(timeoutCtx);
+    checkAnswer(ans);
+    prepareNextQuestion();
+}
+
 // Initialization steps
 TimeBarElm.max = SCORE_PER_QUESTION;
 TimeBarElm.value = SCORE_PER_QUESTION;
@@ -172,14 +178,6 @@ TimeBarElm.value = SCORE_PER_QUESTION;
 generateQuestion();
 
 // Event handlers
-function registerAnswer(ans) {
-    clearInterval(timeoutCtx);
-    let answer = ans;
-
-    checkAnswer(answer);
-    prepareNextQuestion();
-}
-
 AnswerAElm.onclick = function () {
     registerAnswer(AnswerAElm.textContent);
 }
