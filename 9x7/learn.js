@@ -4,20 +4,12 @@ let AnswerAElm = document.getElementById("IdAnswerA");
 let AnswerBElm = document.getElementById("IdAnswerB");
 let AnswerCElm = document.getElementById("IdAnswerC");
 let AnswerDElm = document.getElementById("IdAnswerD");
-let QuestionNrElm = document.getElementById("IdQuestionNr");
-let TimeLabelElm = document.getElementById("IdTimeLabel");
-let TimeBarElm = document.getElementById("IdTimeBar");
+let LessonEndElm = document.getElementById("IdLessonEnd");
 
 // Global variables to hold the state of the application
-let MS_IN_SEC = 1000; // Number of milliseconds in second
-let SCORE_PER_QUESTION = 10;
-let TEN_SECONDS = 10;
-
 let config = {
-    nrOfQuestions: 100,
     minArgVal: 1,
     maxArgVal: 10,
-    timeoutSec: TEN_SECONDS,
 };
 
 let question = {
@@ -26,15 +18,21 @@ let question = {
     correctAns: 0,
 };
 
-let stats = {
-    correctAnsNr: 0,
-    questionNr: 0,
-    score: 0,
+let learning_stats = {
+    // Correct answers per question (a x b)
+    correctAnsPerQuestion: [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ],
 };
-
-let timeoutCtx;
-
-let scoreForCurrentQuestion = SCORE_PER_QUESTION;
 
 // Helper functions
 function getRandomInt(min, max) {
@@ -110,22 +108,23 @@ function generateQuestion() {
     AnswerBElm.textContent = `${ansOptions[1]}`;
     AnswerCElm.textContent = `${ansOptions[2]}`;
     AnswerDElm.textContent = `${ansOptions[3]}`;
-
-    stats.questionNr++;
-
-    QuestionNrElm.textContent = `Pytanie ${stats.questionNr} z ${config.nrOfQuestions}:`;
-
-    timeoutCtx = setInterval(timeout, MS_IN_SEC);
 }
 
-function timeout() {
-    scoreForCurrentQuestion--;
-    TimeBarElm.value = scoreForCurrentQuestion;
-    console.log(`scoreForCurrentQuestion: ${scoreForCurrentQuestion}`);
-    if (scoreForCurrentQuestion == 0) {
-        clearInterval(timeoutCtx);
-        window.alert(`Czas minął! Poprawna odpowiedź to ${question.correctAns}`);
-        prepareNextQuestion();
+function registerGoodAnswer() {
+    if (learning_stats.correctAnsPerQuestion[question.a][question.b] == null) {
+        learning_stats.correctAnsPerQuestion[question.a][question.b] = 1;
+    }
+    else if (learning_stats.correctAnsPerQuestion[question.a][question.b] < 10) {
+        learning_stats.correctAnsPerQuestion[question.a][question.b]++;
+    }
+}
+
+function registerBadAnswer() {
+    if (learning_stats.correctAnsPerQuestion[question.a][question.b] == null) {
+        learning_stats.correctAnsPerQuestion[question.a][question.b] = 0;
+    }
+    else if (learning_stats.correctAnsPerQuestion[question.a][question.b] > 0) {
+        learning_stats.correctAnsPerQuestion[question.a][question.b]--;
     }
 }
 
@@ -134,47 +133,23 @@ function checkAnswer(ans) {
 
     if (ans == question.correctAns) {
         prompt = "Dobrze!";
-        stats.correctAnsNr++;
-        stats.score += scoreForCurrentQuestion;
+        registerGoodAnswer();
     }
     else {
         prompt = `Źle! Poprawna odpowiedź to ${question.correctAns}.`;
+        registerBadAnswer();
     }
 
     window.alert(prompt);
 }
 
-function isFinished() {
-    if (stats.questionNr >= config.nrOfQuestions) {
-        return true;
-    }
-    return false;
-}
-
-function prepareNextQuestion() {
-    // clear the entry
-    scoreForCurrentQuestion = SCORE_PER_QUESTION;
-    TimeBarElm.value = scoreForCurrentQuestion;
-
-    if (isFinished()) {
-        sessionStorage.setItem("stats", JSON.stringify(stats));
-        location.href = "summary.html";
-    }
-    else {
-        generateQuestion();
-    }
-}
-
 function registerAnswer(ans) {
-    clearInterval(timeoutCtx);
     checkAnswer(ans);
-    prepareNextQuestion();
+    generateQuestion();
 }
 
 // Initialization steps
-TimeBarElm.max = SCORE_PER_QUESTION;
-TimeBarElm.value = SCORE_PER_QUESTION;
-
+LessonEndElm.textContent = "Zakończ naukę";
 generateQuestion();
 
 // Event handlers
@@ -192,4 +167,15 @@ AnswerCElm.onclick = function () {
 
 AnswerDElm.onclick = function () {
     registerAnswer(AnswerDElm.textContent);
+}
+
+LessonEndElm.onclick = function () {
+    // sessionStorage.setItem("stats", JSON.stringify(stats));
+    // location.href = "summary.html";
+    console.log("statistics: ");
+    for (let a = 0; a < 10; a++) {
+        for (let b = 0; b < 10; b++) {
+            console.log(`${a} x ${b} : ${learning_stats.correctAnsPerQuestion[a][b]}`);
+        }
+    }
 }
