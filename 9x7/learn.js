@@ -5,7 +5,6 @@ let AnswerBElm = document.getElementById("IdAnswerB");
 let AnswerCElm = document.getElementById("IdAnswerC");
 let AnswerDElm = document.getElementById("IdAnswerD");
 let LessonEndElm = document.getElementById("IdLessonEnd");
-let SummaryElm = document.getElementById("IdSummary");
 
 // Global variables to hold the state of the application
 let config = {
@@ -19,23 +18,33 @@ let question = {
     correctAns: 0,
 };
 
-let learning_stats = {
-    // Correct answers per question (a x b)
-    correctAnsPerQuestion: [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ],
-};
+let learning_stats;
 
 // Helper functions
+function getLearningStatsFromStorage() {
+    const learningStatsStorage = localStorage.getItem("learning_stats");
+    if (learningStatsStorage != null) {
+        return JSON.parse(learningStatsStorage);
+    }
+
+    const stats = {
+        // Correct answers per question (a x b)
+        correctAnsPerQuestion: [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ],
+    };
+    return stats;
+}
+
 function getRandomInt(min, max) {
     const minCeiled = Math.ceil(min);
     const maxFloored = Math.floor(max);
@@ -111,21 +120,25 @@ function generateQuestion() {
     AnswerDElm.textContent = `${ansOptions[3]}`;
 }
 
+function getIdx(i) {
+    return i - 1;
+}
+
 function registerGoodAnswer() {
-    if (learning_stats.correctAnsPerQuestion[question.a][question.b] == null) {
-        learning_stats.correctAnsPerQuestion[question.a][question.b] = 1;
+    if (learning_stats.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] == null) {
+        learning_stats.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] = 1;
     }
-    else if (learning_stats.correctAnsPerQuestion[question.a][question.b] < 10) {
-        learning_stats.correctAnsPerQuestion[question.a][question.b]++;
+    else if (learning_stats.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] < 10) {
+        learning_stats.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)]++;
     }
 }
 
 function registerBadAnswer() {
-    if (learning_stats.correctAnsPerQuestion[question.a][question.b] == null) {
-        learning_stats.correctAnsPerQuestion[question.a][question.b] = 0;
+    if (learning_stats.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] == null) {
+        learning_stats.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] = 0;
     }
-    else if (learning_stats.correctAnsPerQuestion[question.a][question.b] > 0) {
-        learning_stats.correctAnsPerQuestion[question.a][question.b]--;
+    else if (learning_stats.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] > 0) {
+        learning_stats.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)]--;
     }
 }
 
@@ -151,6 +164,7 @@ function registerAnswer(ans) {
 
 // Initialization steps
 LessonEndElm.textContent = "Zakończ naukę";
+learning_stats = getLearningStatsFromStorage();
 generateQuestion();
 
 // Event handlers
@@ -171,31 +185,6 @@ AnswerDElm.onclick = function () {
 }
 
 LessonEndElm.onclick = function () {
-    // sessionStorage.setItem("stats", JSON.stringify(stats));
-    // location.href = "summary.html";
-    for (let a = 0; a < 10; a++) {
-
-        if (a == 0) {
-            const header = SummaryElm.appendChild(document.createElement("tr"));
-            for (let i = 0; i <= 10; i++) {
-                const colHeader = header.appendChild(document.createElement("th"));
-                if (i == 0) {
-                    colHeader.textContent = `x`;
-                }
-                else {
-                    colHeader.textContent = `${i}`;
-                }
-            }
-        }
-        const currentRowElm = SummaryElm.appendChild(document.createElement("tr"));
-
-        for (let b = 0; b < 10; b++) {
-            if (b == 0) {
-                const rowHeader = currentRowElm.appendChild(document.createElement("th"));
-                rowHeader.textContent = `${a + 1}`;
-            }
-            const currentElm = currentRowElm.appendChild(document.createElement("td"));
-            currentElm.textContent = `${learning_stats.correctAnsPerQuestion[a][b]}`;
-        }
-    }
+    localStorage.setItem("learning_stats", JSON.stringify(learning_stats));
+    location.href = "index.html";
 }
