@@ -5,6 +5,7 @@ let AnswerBElm = document.getElementById("IdAnswerB");
 let AnswerCElm = document.getElementById("IdAnswerC");
 let AnswerDElm = document.getElementById("IdAnswerD");
 let LessonEndElm = document.getElementById("IdLessonEnd");
+let SummaryElm = document.getElementById("IdSummary");
 
 // Global variables to hold the state of the application
 let config = {
@@ -172,10 +173,29 @@ AnswerDElm.onclick = function () {
 LessonEndElm.onclick = function () {
     // sessionStorage.setItem("stats", JSON.stringify(stats));
     // location.href = "summary.html";
-    console.log("statistics: ");
     for (let a = 0; a < 10; a++) {
+
+        if (a == 0) {
+            const header = SummaryElm.appendChild(document.createElement("tr"));
+            for (let i = 0; i <= 10; i++) {
+                const colHeader = header.appendChild(document.createElement("th"));
+                if (i == 0) {
+                    colHeader.textContent = `x`;
+                }
+                else {
+                    colHeader.textContent = `${i}`;
+                }
+            }
+        }
+        const currentRowElm = SummaryElm.appendChild(document.createElement("tr"));
+
         for (let b = 0; b < 10; b++) {
-            console.log(`${a} x ${b} : ${learning_stats.correctAnsPerQuestion[a][b]}`);
+            if (b == 0) {
+                const rowHeader = currentRowElm.appendChild(document.createElement("th"));
+                rowHeader.textContent = `${a + 1}`;
+            }
+            const currentElm = currentRowElm.appendChild(document.createElement("td"));
+            currentElm.textContent = `${learning_stats.correctAnsPerQuestion[a][b]}`;
         }
     }
 }
