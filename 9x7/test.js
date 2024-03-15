@@ -29,12 +29,6 @@ let timeoutCtx;
 let scoreForCurrentQuestion = SCORE_PER_QUESTION;
 
 // Helper functions
-function getRandomInt(min, max) {
-    const minCeiled = Math.ceil(min);
-    const maxFloored = Math.floor(max);
-    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
-}
-
 function generateQuestion() {
     question.a = getRandomInt(config.minArgVal, config.maxArgVal);
     question.b = getRandomInt(config.minArgVal, config.maxArgVal);

@@ -15,30 +15,6 @@ let config = {
 };
 
 // Helper functions
-function getLearningStatsFromStorage() {
-    const learningStatsStorage = localStorage.getItem("learning_stats");
-    if (learningStatsStorage != null) {
-        return JSON.parse(learningStatsStorage);
-    }
-
-    const stats = {
-        // Correct answers per question (a x b)
-        correctAnsPerQuestion: [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        ],
-    };
-    return stats;
-}
-
 function printStatistics() {
     const learning_stats = getLearningStatsFromStorage();
 
