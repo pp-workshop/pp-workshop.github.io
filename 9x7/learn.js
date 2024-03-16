@@ -5,10 +5,13 @@ let AnswerBElm = document.getElementById("IdAnswerB");
 let AnswerCElm = document.getElementById("IdAnswerC");
 let AnswerDElm = document.getElementById("IdAnswerD");
 let LessonEndElm = document.getElementById("IdLessonEnd");
-let OKElm = document.getElementById("IdOK");
+let NextQuestionElm = document.getElementById("IdNextQuestion");
 
 // Global variables to hold the state of the application
-let config = {
+let blockAnswers = false;
+let blockNextQuestion = true;
+
+const config = {
     minArgVal: 1,
     maxArgVal: 10,
 };
@@ -88,12 +91,30 @@ function checkAnswer(ans, button) {
 }
 
 function registerAnswer(ans, button) {
+    if (blockAnswers) {
+        return;
+    }
+    enableNextQuestion();
+    blockAnswers = true;
     checkAnswer(ans, button);
+}
+
+function disableNextQuestion() {
+    NextQuestionElm.style.opacity = 0.6;
+    NextQuestionElm.style.cursor = "not-allowed";
+    blockNextQuestion = true;
+}
+
+function enableNextQuestion() {
+    NextQuestionElm.style.opacity = 1;
+    NextQuestionElm.style.cursor = "pointer";
+    blockNextQuestion = false;
 }
 
 // Initialization steps
 LessonEndElm.textContent = "Zakończ naukę";
-OKElm.textContent = "OK";
+NextQuestionElm.textContent = "Następne";
+disableNextQuestion();
 learning_stats = getLearningStatsFromStorage();
 generateQuestion();
 
@@ -114,7 +135,12 @@ AnswerDElm.onclick = function () {
     registerAnswer(AnswerDElm.textContent, AnswerDElm);
 }
 
-OKElm.onclick = function () {
+NextQuestionElm.onclick = function () {
+    if (blockNextQuestion) {
+        return;
+    }
+    disableNextQuestion();
+    blockAnswers = false;
     generateQuestion();
     clearButtonColors();
 }
