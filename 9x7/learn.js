@@ -5,6 +5,7 @@ let AnswerBElm = document.getElementById("IdAnswerB");
 let AnswerCElm = document.getElementById("IdAnswerC");
 let AnswerDElm = document.getElementById("IdAnswerD");
 let LessonEndElm = document.getElementById("IdLessonEnd");
+let OKElm = document.getElementById("IdOK");
 
 // Global variables to hold the state of the application
 let config = {
@@ -68,46 +69,54 @@ function registerBadAnswer() {
     }
 }
 
-function checkAnswer(ans) {
-    let prompt;
+function clearButtonColors() {
+    AnswerAElm.style.background = "#270f26";
+    AnswerBElm.style.background = "#270f26";
+    AnswerCElm.style.background = "#270f26";
+    AnswerDElm.style.background = "#270f26";
+}
 
+function checkAnswer(ans, button) {
     if (ans == question.correctAns) {
-        prompt = "Dobrze!";
+        button.style.background = "green";
         registerGoodAnswer();
     }
     else {
-        prompt = `Źle! Poprawna odpowiedź to ${question.correctAns}.`;
+        button.style.background = "red";
         registerBadAnswer();
     }
-
-    window.alert(prompt);
 }
 
-function registerAnswer(ans) {
-    checkAnswer(ans);
-    generateQuestion();
+function registerAnswer(ans, button) {
+    checkAnswer(ans, button);
 }
 
 // Initialization steps
 LessonEndElm.textContent = "Zakończ naukę";
+OKElm.textContent = "OK";
 learning_stats = getLearningStatsFromStorage();
 generateQuestion();
 
 // Event handlers
 AnswerAElm.onclick = function () {
-    registerAnswer(AnswerAElm.textContent);
+    registerAnswer(AnswerAElm.textContent, AnswerAElm);
 }
 
 AnswerBElm.onclick = function () {
-    registerAnswer(AnswerBElm.textContent);
+    registerAnswer(AnswerBElm.textContent, AnswerBElm);
 }
 
 AnswerCElm.onclick = function () {
-    registerAnswer(AnswerCElm.textContent);
+    registerAnswer(AnswerCElm.textContent, AnswerCElm);
 }
 
 AnswerDElm.onclick = function () {
-    registerAnswer(AnswerDElm.textContent);
+    registerAnswer(AnswerDElm.textContent, AnswerDElm);
+}
+
+OKElm.onclick = function () {
+    generateQuestion();
+    clearButtonColors();
 }
 
 LessonEndElm.onclick = function () {
