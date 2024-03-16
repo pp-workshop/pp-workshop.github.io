@@ -86,7 +86,23 @@ function checkAnswer(ans, button) {
     }
     else {
         button.style.background = "red";
+        highlightCorrectAnswer();
         registerBadAnswer();
+    }
+}
+
+function highlightCorrectAnswer() {
+    if (AnswerAElm.textContent == question.correctAns) {
+        AnswerAElm.style.background = "green";
+    }
+    else if (AnswerBElm.textContent == question.correctAns) {
+        AnswerBElm.style.background = "green";
+    }
+    else if (AnswerCElm.textContent == question.correctAns) {
+        AnswerCElm.style.background = "green";
+    }
+    else if (AnswerDElm.textContent == question.correctAns) {
+        AnswerDElm.style.background = "green";
     }
 }
 
