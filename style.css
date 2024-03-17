@@ -88,6 +88,17 @@ body {
     background-color: rgb(224, 201, 222);
 }
 
+.content-card {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: #240024;
+    border-style: solid;
+    border-width: 1px;
+}
+
 .title-card>img {
     background-color: rgb(51, 11, 41);
     width: 15%;
@@ -101,9 +112,23 @@ body {
     margin-bottom: auto;
 }
 
+.fig {
+    border-radius: 5px;
+    background-color: rgb(224, 201, 222);
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 table,
 th,
 td {
     border: 1px solid white;
     border-collapse: collapse;
+    width: 8%;
+    text-align: center;
 }

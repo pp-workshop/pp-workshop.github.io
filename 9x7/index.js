@@ -3,6 +3,8 @@ let HeaderElm = document.getElementById("IdHeader");
 let StartTestElm = document.getElementById("IdStartTest");
 let StartLearningElm = document.getElementById("IdStartLearning");
 let SummaryElm = document.getElementById("IdSummary");
+let SummaryTextElm = document.getElementById("IdSummaryText");
+let PromptForTestOrLesson = document.getElementById("IdPromptForTestOrLesson");
 
 // Global variables to hold the state of the application
 let TEN_SECONDS = 10;
@@ -75,6 +77,8 @@ function printStatistics() {
 HeaderElm.textContent = "Tabliczka mnożenia";
 StartLearningElm.textContent = "Rozpocznij naukę";
 StartTestElm.textContent = "Rozpocznij test";
+SummaryTextElm.textContent = "Twoje obecne umiejętności przedstawiają się następująco:";
+PromptForTestOrLesson.textContent = "Rozwiąż test lub rozpocznij naukę aby zaktualizować powyższą mapę!";
 
 printStatistics();
 
