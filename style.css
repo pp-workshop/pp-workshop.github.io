@@ -100,3 +100,10 @@ body {
     margin-top: auto;
     margin-bottom: auto;
 }
+
+table,
+th,
+td {
+    border: 1px solid white;
+    border-collapse: collapse;
+}

@@ -14,7 +14,30 @@ let config = {
     timeoutSec: TEN_SECONDS,
 };
 
+
 // Helper functions
+function calculateColor(percentage) {
+    const maxColorVal = 255;
+    const step = maxColorVal / 50;
+
+    let colorRGB = {
+        red: 0,
+        green: 0,
+        blue: 0,
+    }
+
+    if (percentage < 50) {
+        colorRGB.red = maxColorVal;
+        colorRGB.green = step * percentage;
+    }
+    else if (percentage >= 50) {
+        colorRGB.green = maxColorVal;
+        colorRGB.red = (step * (100 - percentage));
+    }
+
+    return colorRGB;
+}
+
 function printStatistics() {
     const learning_stats = getLearningStatsFromStorage();
 
@@ -40,7 +63,10 @@ function printStatistics() {
                 rowHeader.textContent = `${a + 1}`;
             }
             const currentElm = currentRowElm.appendChild(document.createElement("td"));
-            currentElm.textContent = `${learning_stats.correctAnsPerQuestion[a][b]}`;
+            const score = learning_stats.correctAnsPerQuestion[a][b];
+            currentElm.textContent = `${score}`;
+            color = calculateColor(score * 10);
+            currentElm.style.background = `rgb(${color.red}, ${color.green}, ${color.blue})`;
         }
     }
 }
