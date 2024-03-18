@@ -1,4 +1,5 @@
 // HTML Elements
+let HeaderElm = document.getElementById("IdHeader");
 let QuestionElm = document.getElementById("IdQuestion");
 let AnswerAElm = document.getElementById("IdAnswerA");
 let AnswerBElm = document.getElementById("IdAnswerB");
@@ -128,6 +129,7 @@ function enableNextQuestion() {
 }
 
 // Initialization steps
+HeaderElm.textContent = "Odpowiedz na pytania"
 LessonEndElm.textContent = "Zakończ naukę";
 NextQuestionElm.textContent = "Następne";
 disableNextQuestion();

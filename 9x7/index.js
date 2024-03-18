@@ -75,8 +75,8 @@ function printStatistics() {
 
 // Initialization steps
 HeaderElm.textContent = "Tabliczka mnożenia";
-StartLearningElm.textContent = "Rozpocznij naukę";
-StartTestElm.textContent = "Rozpocznij test";
+StartLearningElm.textContent = "Nauka";
+StartTestElm.textContent = "Test";
 SummaryTextElm.textContent = "Twoje obecne umiejętności przedstawiają się następująco:";
 PromptForTestOrLesson.textContent = "Rozwiąż test lub rozpocznij naukę aby zaktualizować powyższą mapę!";
 
