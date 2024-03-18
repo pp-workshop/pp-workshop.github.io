@@ -1,0 +1,35 @@
+.header {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.header .logo {
+    max-width: 80px;
+}
+
+.header p {
+    font-family: "Audiowide", Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 30px;
+    margin-left: 20px;
+    color: white;
+}
+
+/* Special handling for bigger screens */
+@media only screen and (min-width: 800px) {
+    .header {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .header .logo {
+        max-width: 120px;
+    }
+
+    .header p {
+        font-size: 40px;
+        margin-left: 20px;
+    }
+}

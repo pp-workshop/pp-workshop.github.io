@@ -25,7 +25,6 @@
     </div>
 
     <div class="content full-width">
-
         <div class="title-card">
             <img src="../resources/9x7.svg" alt="9x7">
             <div>
@@ -34,24 +33,28 @@
         </div>
 
         <div class="content-card">
-            <p id="IdSummaryText"></p>
-
-            <div class="fig">
-                <table id="IdSummary"></table>
+            <div class="multi-choose-question">
+                <div>
+                    <h1 id="IdQuestion"></h1>
+                </div>
+                <div>
+                    <button id="IdAnswerA" class="button"></button>
+                    <button id="IdAnswerB" class="button"></button>
+                </div>
+                <div>
+                    <button id="IdAnswerC" class="button"></button>
+                    <button id="IdAnswerD" class="button"></button>
+                </div>
             </div>
-            </table>
         </div>
-
         <div class="content-card">
-            <p id="IdPromptForTestOrLesson"></p>
-
-            <button id="IdStartLearning" class="button">Rozpocznij naukę</button>
-            <button id="IdStartTest" class="button">Rozpocznij test</button>
+            <button id="IdNextQuestion" class="button"></button>
+            <button id="IdLessonEnd" class="button"></button>
         </div>
     </div>
 
     <script src="common-functions.js"></script>
-    <script src="index.js"></script>
+    <script src="learn.js"></script>
 </body>
 
 </html>
