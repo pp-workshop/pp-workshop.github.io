@@ -25,12 +25,23 @@
     </div>
 
     <div class="content full-width">
-        <p id="IdQuestionNr"></p>
-        <progress id="IdTimeBar"></progress>
-        <h1 id="IdHeader">Podaj wynik mnożenia</h1>
-        <label id="IdQuestion" for="IdAnswer"></label>
-        <input id="IdAnswer" type="number" placeholder="Podaj wynik mnożenia" />
-        <button id="IdSubmit">Wyślij</button>
+        <div class="title-card">
+            <img src="../resources/9x7.svg" alt="9x7">
+            <div>
+                <h2 id="IdHeader"><b></b></h2>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <p id="IdQuestionNr"></p>
+            <progress id="IdTimeBar" class="progress-bar"></progress>
+            <h1 id="IdQuestion" for="IdAnswer"></h1>
+            <input id="IdAnswer" class="entry" type="number" placeholder="Podaj wynik mnożenia" />
+            <button id="IdSubmit" class="button"></button>
+        </div>
+        <div class="content-card">
+            <button id="IdCancel" class="button"></button>
+        </div>
     </div>
 
     <script src="common-functions.js"></script>

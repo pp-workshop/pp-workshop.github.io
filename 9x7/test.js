@@ -2,6 +2,7 @@
 let QuestionElm = document.getElementById("IdQuestion");
 let AnswerElm = document.getElementById("IdAnswer");
 let SubmitElm = document.getElementById("IdSubmit");
+let CancelElm = document.getElementById("IdCancel");
 let QuestionNrElm = document.getElementById("IdQuestionNr");
 let TimeLabelElm = document.getElementById("IdTimeLabel");
 let TimeBarElm = document.getElementById("IdTimeBar");
@@ -84,6 +85,8 @@ function prepareNextQuestion() {
 // Initialization steps
 TimeBarElm.max = TIMEOUT_SEC;
 TimeBarElm.value = TIMEOUT_SEC;
+SubmitElm.textContent = "Wyślij";
+CancelElm.textContent = "Przerwij test";
 
 generateQuestion();
 AnswerElm.focus();
@@ -95,6 +98,10 @@ SubmitElm.onclick = function () {
 
     checkAnswer(answer);
     prepareNextQuestion();
+}
+
+CancelElm.onclick = function () {
+    location.href = "index.html";
 }
 
 // This is how you can trigger a button activation by hitting enter in an input field

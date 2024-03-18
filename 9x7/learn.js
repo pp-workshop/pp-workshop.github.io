@@ -129,7 +129,7 @@ function enableNextQuestion() {
 }
 
 // Initialization steps
-HeaderElm.textContent = "Odpowiedz na pytania"
+HeaderElm.textContent = "Odpowiedz na pytanie"
 LessonEndElm.textContent = "Zakończ naukę";
 NextQuestionElm.textContent = "Następne";
 disableNextQuestion();
