@@ -1,9 +1,4 @@
-function getLearningStatsFromStorage() {
-    const learningStatsStorage = localStorage.getItem("learning_stats");
-    if (learningStatsStorage != null) {
-        return JSON.parse(learningStatsStorage);
-    }
-
+function generateEmptyStats() {
     const stats = {
         // Correct answers per question (a x b)
         correctAnsPerQuestion: [
@@ -20,6 +15,19 @@ function getLearningStatsFromStorage() {
         ],
     };
     return stats;
+}
+
+function getLearningStatsFromStorage() {
+    const learningStatsStorage = localStorage.getItem("learning_stats");
+    if (learningStatsStorage != null) {
+        return JSON.parse(learningStatsStorage);
+    }
+
+    return generateEmptyStats();
+}
+
+function saveLearningStatsInStorage(learning_stats) {
+    localStorage.setItem("learning_stats", JSON.stringify(learning_stats));
 }
 
 function getRandomInt(min, max) {

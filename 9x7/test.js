@@ -14,13 +14,10 @@ let question = {
     a: 0,
     b: 0,
     correctAns: 0,
+    questionNr: 0,
 };
 
-let stats = {
-    correctAnsNr: 0,
-    questionNr: 0,
-    score: 0,
-};
+let learning_stats = generateEmptyStats();
 
 let config = JSON.parse(sessionStorage.getItem("config"));
 
@@ -34,9 +31,9 @@ function generateQuestion() {
     question.b = getRandomInt(config.minArgVal, config.maxArgVal);
     question.correctAns = question.a * question.b;
     QuestionElm.textContent = `${question.a} x ${question.b} = `;
-    stats.questionNr++;
+    question.questionNr++;
 
-    QuestionNrElm.textContent = `Pytanie ${stats.questionNr} z ${config.nrOfQuestions}:`;
+    QuestionNrElm.textContent = `Pytanie ${question.questionNr} z ${config.nrOfQuestions}:`;
 
     timeoutCtx = setInterval(timeout, MS_IN_SEC);
 }
@@ -47,28 +44,19 @@ function timeout() {
     console.log(`scoreForCurrentQuestion: ${scoreForCurrentQuestion}`);
     if (scoreForCurrentQuestion == 0) {
         clearInterval(timeoutCtx);
-        window.alert(`Czas minął! Poprawna odpowiedź to ${question.correctAns}`);
         prepareNextQuestion();
     }
 }
 
 function checkAnswer(ans) {
-    let prompt;
-
     if (ans == question.correctAns) {
-        prompt = "Dobrze!";
-        stats.correctAnsNr++;
-        stats.score += scoreForCurrentQuestion;
+        learning_stats.correctAnsPerQuestion[question.a][question.b] =
+            (scoreForCurrentQuestion <= SCORE_PER_QUESTION) ? scoreForCurrentQuestion : SCORE_PER_QUESTION;
     }
-    else {
-        prompt = `Źle! Poprawna odpowiedź to ${question.correctAns}.`;
-    }
-
-    window.alert(prompt);
 }
 
 function isFinished() {
-    if (stats.questionNr >= config.nrOfQuestions) {
+    if (question.questionNr >= config.nrOfQuestions) {
         return true;
     }
     return false;
@@ -81,8 +69,8 @@ function prepareNextQuestion() {
     TimeBarElm.value = scoreForCurrentQuestion;
 
     if (isFinished()) {
-        sessionStorage.setItem("stats", JSON.stringify(stats));
-        location.href = "summary.html";
+        saveLearningStatsInStorage(learning_stats);
+        location.href = "index.html";
     }
     else {
         generateQuestion();

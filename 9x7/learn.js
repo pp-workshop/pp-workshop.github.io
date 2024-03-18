@@ -164,6 +164,6 @@ NextQuestionElm.onclick = function () {
 }
 
 LessonEndElm.onclick = function () {
-    localStorage.setItem("learning_stats", JSON.stringify(learning_stats));
+    saveLearningStatsInStorage(learning_stats);
     location.href = "index.html";
 }

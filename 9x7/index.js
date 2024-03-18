@@ -7,13 +7,12 @@ let SummaryTextElm = document.getElementById("IdSummaryText");
 let PromptForTestOrLesson = document.getElementById("IdPromptForTestOrLesson");
 
 // Global variables to hold the state of the application
-let TEN_SECONDS = 10;
 
 let config = {
     nrOfQuestions: 100,
     minArgVal: 1,
     maxArgVal: 10,
-    timeoutSec: TEN_SECONDS,
+    timeoutSec: 10,
 };
 
 
