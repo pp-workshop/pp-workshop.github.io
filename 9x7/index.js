@@ -6,16 +6,6 @@ let SummaryElm = document.getElementById("IdSummary");
 let SummaryTextElm = document.getElementById("IdSummaryText");
 let PromptForTestOrLesson = document.getElementById("IdPromptForTestOrLesson");
 
-// Global variables to hold the state of the application
-
-let config = {
-    nrOfQuestions: 100,
-    minArgVal: 1,
-    maxArgVal: 10,
-    timeoutSec: 10,
-};
-
-
 // Helper functions
 function calculateColor(percentage) {
     const maxColorVal = 255;
@@ -83,7 +73,6 @@ printStatistics();
 
 //Event handlers
 StartTestElm.onclick = function () {
-    sessionStorage.setItem("config", JSON.stringify(config));
     location.href = "test.html";
 }
 

@@ -7,8 +7,12 @@ let TimeLabelElm = document.getElementById("IdTimeLabel");
 let TimeBarElm = document.getElementById("IdTimeBar");
 
 // Global variables to hold the state of the application
-let MS_IN_SEC = 1000; // Number of milliseconds in second
-let SCORE_PER_QUESTION = 10;
+const MS_IN_SEC = 1000; // Number of milliseconds in second
+const SCORE_PER_QUESTION = 10;
+const NR_OF_QUESTIONS = 100;
+const MIN_ARG_VAL = 1;
+const MAX_ARG_VAL = 10;
+const TIMEOUT_SEC = 12;
 
 let question = {
     a: 0,
@@ -18,31 +22,31 @@ let question = {
 };
 
 let learning_stats = generateEmptyStats();
-
-let config = JSON.parse(sessionStorage.getItem("config"));
-
+let timeoutSec = TIMEOUT_SEC;
 let timeoutCtx;
-
 let scoreForCurrentQuestion = SCORE_PER_QUESTION;
 
 // Helper functions
 function generateQuestion() {
-    question.a = getRandomInt(config.minArgVal, config.maxArgVal);
-    question.b = getRandomInt(config.minArgVal, config.maxArgVal);
+    question.a = getRandomInt(MIN_ARG_VAL, MAX_ARG_VAL);
+    question.b = getRandomInt(MIN_ARG_VAL, MAX_ARG_VAL);
     question.correctAns = question.a * question.b;
     QuestionElm.textContent = `${question.a} x ${question.b} = `;
     question.questionNr++;
 
-    QuestionNrElm.textContent = `Pytanie ${question.questionNr} z ${config.nrOfQuestions}:`;
+    QuestionNrElm.textContent = `Pytanie ${question.questionNr} z ${NR_OF_QUESTIONS}:`;
 
     timeoutCtx = setInterval(timeout, MS_IN_SEC);
 }
 
 function timeout() {
-    scoreForCurrentQuestion--;
-    TimeBarElm.value = scoreForCurrentQuestion;
+    if (timeoutSec <= SCORE_PER_QUESTION) {
+        scoreForCurrentQuestion--;
+    }
+    timeoutSec--;
+    TimeBarElm.value = timeoutSec;
     console.log(`scoreForCurrentQuestion: ${scoreForCurrentQuestion}`);
-    if (scoreForCurrentQuestion == 0) {
+    if (timeoutSec == 0) {
         clearInterval(timeoutCtx);
         prepareNextQuestion();
     }
@@ -50,13 +54,12 @@ function timeout() {
 
 function checkAnswer(ans) {
     if (ans == question.correctAns) {
-        learning_stats.correctAnsPerQuestion[question.a][question.b] =
-            (scoreForCurrentQuestion <= SCORE_PER_QUESTION) ? scoreForCurrentQuestion : SCORE_PER_QUESTION;
+        learning_stats.correctAnsPerQuestion[question.a][question.b] = scoreForCurrentQuestion;
     }
 }
 
 function isFinished() {
-    if (question.questionNr >= config.nrOfQuestions) {
+    if (question.questionNr >= NR_OF_QUESTIONS) {
         return true;
     }
     return false;
@@ -66,7 +69,8 @@ function prepareNextQuestion() {
     // clear the entry
     AnswerElm.value = null;
     scoreForCurrentQuestion = SCORE_PER_QUESTION;
-    TimeBarElm.value = scoreForCurrentQuestion;
+    timeoutSec = TIMEOUT_SEC;
+    TimeBarElm.value = timeoutSec;
 
     if (isFinished()) {
         saveLearningStatsInStorage(learning_stats);
@@ -78,8 +82,8 @@ function prepareNextQuestion() {
 }
 
 // Initialization steps
-TimeBarElm.max = SCORE_PER_QUESTION;
-TimeBarElm.value = SCORE_PER_QUESTION;
+TimeBarElm.max = TIMEOUT_SEC;
+TimeBarElm.value = TIMEOUT_SEC;
 
 generateQuestion();
 AnswerElm.focus();
