@@ -55,7 +55,8 @@ function printStatistics() {
             }
             const currentElm = currentRowElm.appendChild(document.createElement("td"));
             const score = learning_stats.correctAnsPerQuestion[a][b];
-            currentElm.textContent = `${score}`;
+            // currentElm.textContent = `${score}`;
+            currentElm.textContent = ``;
             color = calculateColor(score * 10);
             currentElm.style.background = `rgb(${color.red}, ${color.green}, ${color.blue})`;
         }
