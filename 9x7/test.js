@@ -1,4 +1,5 @@
 // HTML Elements
+let HeaderElm = document.getElementById("IdHeader");
 let QuestionElm = document.getElementById("IdQuestion");
 let AnswerElm = document.getElementById("IdAnswer");
 let SubmitElm = document.getElementById("IdSubmit");
@@ -83,6 +84,7 @@ function prepareNextQuestion() {
 }
 
 // Initialization steps
+HeaderElm.textContent = "Odpowiedz na pytanie"
 TimeBarElm.max = TIMEOUT_SEC;
 TimeBarElm.value = TIMEOUT_SEC;
 SubmitElm.textContent = "Wyślij";
