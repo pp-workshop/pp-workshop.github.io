@@ -17,6 +17,10 @@ function generateEmptyStats() {
     return stats;
 }
 
+function getIdx(i) {
+    return i - 1;
+}
+
 function getLearningStatsFromStorage() {
     const learningStatsStorage = localStorage.getItem("learning_stats");
     if (learningStatsStorage != null) {

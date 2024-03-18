@@ -51,10 +51,6 @@ function generateQuestion() {
     AnswerDElm.textContent = `${ansOptions[3]}`;
 }
 
-function getIdx(i) {
-    return i - 1;
-}
-
 function registerGoodAnswer() {
     if (learning_stats.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] == null) {
         learning_stats.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] = 1;

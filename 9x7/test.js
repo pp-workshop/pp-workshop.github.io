@@ -32,6 +32,7 @@ let scoreForCurrentQuestion = SCORE_PER_QUESTION;
 function generateQuestion() {
     question.a = getRandomInt(MIN_ARG_VAL, MAX_ARG_VAL);
     question.b = getRandomInt(MIN_ARG_VAL, MAX_ARG_VAL);
+
     question.correctAns = question.a * question.b;
     QuestionElm.textContent = `${question.a} x ${question.b} = `;
     question.questionNr++;
@@ -56,7 +57,7 @@ function timeout() {
 
 function checkAnswer(ans) {
     if (ans == question.correctAns) {
-        learning_stats.correctAnsPerQuestion[question.a][question.b] = scoreForCurrentQuestion;
+        learning_stats.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] = scoreForCurrentQuestion;
     }
 }
 
