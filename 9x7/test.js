@@ -24,19 +24,51 @@ let question = {
 };
 
 let learning_stats = generateEmptyStats();
+let questions_asked = generateEmptyStats();
 let timeoutSec = TIMEOUT_SEC;
 let timeoutCtx;
 let scoreForCurrentQuestion = SCORE_PER_QUESTION;
 
 // Helper functions
-function generateQuestion() {
-    question.a = getRandomInt(MIN_ARG_VAL, MAX_ARG_VAL);
-    question.b = getRandomInt(MIN_ARG_VAL, MAX_ARG_VAL);
+function generateQuestionAB() {
+    let candidateA = getRandomInt(MIN_ARG_VAL, MAX_ARG_VAL);
+    let candidateB = getRandomInt(MIN_ARG_VAL, MAX_ARG_VAL);
 
+    question.a = candidateA;
+    question.b = candidateB;
+    const USED = 1;
+    for (; question.a <= MAX_ARG_VAL; question.a++) {
+        for (; question.b <= MAX_ARG_VAL; question.b++) {
+            if (questions_asked.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] != USED) {
+                questions_asked.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] = USED;
+                return;
+            }
+        }
+        question.b = MIN_ARG_VAL;
+    }
+
+    question.a = candidateA;
+    question.b = candidateB;
+    for (; question.a >= MIN_ARG_VAL; question.a--) {
+        for (; question.b >= MIN_ARG_VAL; question.b--) {
+            if (questions_asked.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] != USED) {
+                questions_asked.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] = USED;
+                return;
+            }
+        }
+        question.b = MAX_ARG_VAL;
+    }
+
+    console.log(`ERROR: no candidate found for a: ${question.a} b: ${question.b}`);
+
+}
+
+function generateQuestion() {
+    generateQuestionAB();
     question.correctAns = question.a * question.b;
-    QuestionElm.textContent = `${question.a} x ${question.b} = `;
     question.questionNr++;
 
+    QuestionElm.textContent = `${question.a} x ${question.b} = `;
     QuestionNrElm.textContent = `Pytanie ${question.questionNr} z ${NR_OF_QUESTIONS}:`;
 
     timeoutCtx = setInterval(timeout, MS_IN_SEC);
@@ -104,6 +136,7 @@ SubmitElm.onclick = function () {
 }
 
 CancelElm.onclick = function () {
+    saveLearningStatsInStorage(learning_stats);
     location.href = "index.html";
 }
 
