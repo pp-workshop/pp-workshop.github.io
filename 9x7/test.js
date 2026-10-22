@@ -7,6 +7,8 @@ let CancelElm = document.getElementById("IdCancel");
 let QuestionNrElm = document.getElementById("IdQuestionNr");
 let TimeLabelElm = document.getElementById("IdTimeLabel");
 let TimeBarElm = document.getElementById("IdTimeBar");
+let KeypadElm = document.getElementById("IdKeypad");
+let KeypadToggleElm = document.getElementById("IdKeypadToggle");
 
 // Global variables to hold the state of the application
 const MS_IN_SEC = 1000; // Number of milliseconds in second
@@ -116,12 +118,26 @@ function prepareNextQuestion() {
     }
 }
 
+function setKeypadEnabled(enabled) {
+    KeypadElm.hidden = !enabled;
+    KeypadToggleElm.textContent = enabled ? "Ukryj klawiaturę" : "Pokaż klawiaturę";
+    // Suppress the system on-screen keyboard while the numeric keypad is shown
+    if (enabled) {
+        AnswerElm.setAttribute("inputmode", "none");
+    }
+    else {
+        AnswerElm.removeAttribute("inputmode");
+    }
+    saveKeypadEnabledInStorage(enabled);
+}
+
 // Initialization steps
 HeaderElm.textContent = "Odpowiedz na pytanie"
 TimeBarElm.max = TIMEOUT_SEC;
 TimeBarElm.value = TIMEOUT_SEC;
 SubmitElm.textContent = "Wyślij";
 CancelElm.textContent = "Przerwij test";
+setKeypadEnabled(getKeypadEnabledFromStorage());
 
 generateQuestion();
 AnswerElm.focus();
@@ -133,6 +149,29 @@ SubmitElm.onclick = function () {
 
     checkAnswer(answer);
     prepareNextQuestion();
+}
+
+KeypadToggleElm.onclick = function () {
+    setKeypadEnabled(KeypadElm.hidden);
+    AnswerElm.focus();
+}
+
+KeypadElm.onclick = function (event) {
+    const key = event.target.dataset.key;
+    if (key == null) {
+        return;
+    }
+
+    if (key === "C") {
+        AnswerElm.value = null;
+    }
+    else if (key === "Backspace") {
+        AnswerElm.value = AnswerElm.value.slice(0, -1);
+    }
+    else {
+        AnswerElm.value += key;
+    }
+    AnswerElm.focus();
 }
 
 CancelElm.onclick = function () {

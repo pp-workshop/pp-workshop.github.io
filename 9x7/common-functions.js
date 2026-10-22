@@ -34,6 +34,14 @@ function saveLearningStatsInStorage(learning_stats) {
     localStorage.setItem("learning_stats", JSON.stringify(learning_stats));
 }
 
+function getKeypadEnabledFromStorage() {
+    return localStorage.getItem("keypad_enabled") === "true";
+}
+
+function saveKeypadEnabledInStorage(enabled) {
+    localStorage.setItem("keypad_enabled", enabled);
+}
+
 function getRandomInt(min, max) {
     const minCeiled = Math.ceil(min);
     const maxFloored = Math.floor(max);
