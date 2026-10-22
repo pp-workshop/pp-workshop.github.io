@@ -7,6 +7,8 @@ let SummaryElm = document.getElementById("IdSummary");
 let SummaryTextElm = document.getElementById("IdSummaryText");
 let PromptForTestOrLesson = document.getElementById("IdPromptForTestOrLesson");
 
+const DEFAULT_TEST_TIMEOUT_SEC = 12;
+
 // Helper functions
 function calculateColor(percentage) {
     const maxColorVal = 255;
@@ -77,7 +79,18 @@ printStatistics();
 
 //Event handlers
 StartTestElm.onclick = function () {
-    location.href = "test.html";
+    let timeout = getTestTimeoutFromStorage(DEFAULT_TEST_TIMEOUT_SEC);
+    let input = timeout;
+    do {
+        input = prompt("Podaj czas na odpowiedź (w sekundach):", input);
+        if (input == null) {
+            return;
+        }
+        timeout = Number(input);
+    } while (!Number.isInteger(timeout) || timeout <= 0);
+
+    saveTestTimeoutInStorage(timeout);
+    location.href = `test.html?timeout=${timeout}`;
 }
 
 StartLearningElm.onclick = function () {

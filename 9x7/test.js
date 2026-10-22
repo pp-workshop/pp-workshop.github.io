@@ -10,13 +10,19 @@ let TimeBarElm = document.getElementById("IdTimeBar");
 let KeypadElm = document.getElementById("IdKeypad");
 let KeypadToggleElm = document.getElementById("IdKeypadToggle");
 
+function getTimeoutFromUrl(defaultVal) {
+    const timeout = Number(new URLSearchParams(location.search).get("timeout"));
+    return Number.isInteger(timeout) && timeout > 0 ? timeout : defaultVal;
+}
+
 // Global variables to hold the state of the application
 const MS_IN_SEC = 1000; // Number of milliseconds in second
 const SCORE_PER_QUESTION = 10;
 const NR_OF_QUESTIONS = 100;
 const MIN_ARG_VAL = 1;
 const MAX_ARG_VAL = 10;
-const TIMEOUT_SEC = 12;
+const DEFAULT_TIMEOUT_SEC = 12;
+const TIMEOUT_SEC = getTimeoutFromUrl(DEFAULT_TIMEOUT_SEC);
 
 let question = {
     a: 0,

@@ -42,6 +42,15 @@ function saveKeypadEnabledInStorage(enabled) {
     localStorage.setItem("keypad_enabled", enabled);
 }
 
+function getTestTimeoutFromStorage(defaultVal) {
+    const timeout = parseInt(localStorage.getItem("test_timeout"));
+    return Number.isInteger(timeout) && timeout > 0 ? timeout : defaultVal;
+}
+
+function saveTestTimeoutInStorage(timeout) {
+    localStorage.setItem("test_timeout", timeout);
+}
+
 function getRandomInt(min, max) {
     const minCeiled = Math.ceil(min);
     const maxFloored = Math.floor(max);
