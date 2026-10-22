@@ -15,6 +15,7 @@ let blockNextQuestion = true;
 const config = {
     minArgVal: 1,
     maxArgVal: 10,
+    maxScore: 10,
 };
 
 let question = {
@@ -37,9 +38,41 @@ function generateAnswerOptions(q) {
     return shuffle(answerOptions);
 }
 
+// Picks question arguments at random, weighted so that questions with lower
+// score are asked more often. The previous question is not repeated.
+function generateQuestionAB() {
+    let candidates = [];
+    let totalWeight = 0;
+
+    for (let a = config.minArgVal; a <= config.maxArgVal; a++) {
+        for (let b = config.minArgVal; b <= config.maxArgVal; b++) {
+            if (a == question.a && b == question.b) {
+                continue;
+            }
+            const score = learning_stats.correctAnsPerQuestion[getIdx(a)][getIdx(b)] ?? 0;
+            const weight = config.maxScore + 1 - score;
+            candidates.push({ a: a, b: b, weight: weight });
+            totalWeight += weight;
+        }
+    }
+
+    let r = Math.random() * totalWeight;
+    for (const candidate of candidates) {
+        r -= candidate.weight;
+        if (r < 0) {
+            question.a = candidate.a;
+            question.b = candidate.b;
+            return;
+        }
+    }
+
+    const last = candidates[candidates.length - 1];
+    question.a = last.a;
+    question.b = last.b;
+}
+
 function generateQuestion() {
-    question.a = getRandomInt(config.minArgVal, config.maxArgVal);
-    question.b = getRandomInt(config.minArgVal, config.maxArgVal);
+    generateQuestionAB();
     question.correctAns = question.a * question.b;
 
     let ansOptions = generateAnswerOptions(question);
@@ -55,7 +88,7 @@ function registerGoodAnswer() {
     if (learning_stats.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] == null) {
         learning_stats.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] = 1;
     }
-    else if (learning_stats.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] < 10) {
+    else if (learning_stats.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)] < config.maxScore) {
         learning_stats.correctAnsPerQuestion[getIdx(question.a)][getIdx(question.b)]++;
     }
 }
