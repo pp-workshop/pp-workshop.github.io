@@ -25,7 +25,7 @@ let question = {
     questionNr: 0,
 };
 
-let learning_stats = generateEmptyStats();
+let learning_stats = getLearningStatsFromStorage();
 let questions_asked = generateEmptyStats();
 let timeoutSec = TIMEOUT_SEC;
 let timeoutCtx;

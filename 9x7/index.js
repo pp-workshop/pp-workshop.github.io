@@ -2,6 +2,7 @@
 let HeaderElm = document.getElementById("IdHeader");
 let StartTestElm = document.getElementById("IdStartTest");
 let StartLearningElm = document.getElementById("IdStartLearning");
+let ClearStatsElm = document.getElementById("IdClearStats");
 let SummaryElm = document.getElementById("IdSummary");
 let SummaryTextElm = document.getElementById("IdSummaryText");
 let PromptForTestOrLesson = document.getElementById("IdPromptForTestOrLesson");
@@ -31,6 +32,7 @@ function calculateColor(percentage) {
 
 function printStatistics() {
     const learning_stats = getLearningStatsFromStorage();
+    SummaryElm.replaceChildren();
 
     for (let a = 0; a < 10; a++) {
 
@@ -67,6 +69,7 @@ function printStatistics() {
 HeaderElm.textContent = "Tabliczka mnożenia";
 StartLearningElm.textContent = "Nauka";
 StartTestElm.textContent = "Test";
+ClearStatsElm.textContent = "Wyczyść statystyki";
 SummaryTextElm.textContent = "Twoje obecne umiejętności przedstawiają się następująco:";
 PromptForTestOrLesson.textContent = "Rozwiąż test lub rozpocznij naukę aby zaktualizować powyższą mapę!";
 
@@ -79,4 +82,11 @@ StartTestElm.onclick = function () {
 
 StartLearningElm.onclick = function () {
     location.href = "learn.html";
+}
+
+ClearStatsElm.onclick = function () {
+    if (confirm("Czy na pewno chcesz wyczyścić statystyki?")) {
+        saveLearningStatsInStorage(generateEmptyStats());
+        printStatistics();
+    }
 }
